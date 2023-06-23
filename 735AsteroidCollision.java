@@ -6,10 +6,11 @@ class Solution {
         while (i < asteroids.length) {
             if (stack.isEmpty() || !willCollide(stack.peek(), asteroids[i])) {
                 stack.push(asteroids[i]);
-            } else {
-                if (Math.abs(asteroids[i]) >= Math.abs(stack.peek())) {
-                    stack.pop();
-                }
+            } else if (Math.abs(asteroids[i]) > Math.abs(stack.peek())) {
+                stack.pop();
+                i--;
+            } else if (Math.abs(asteroids[i]) == Math.abs(stack.peek())) {
+                stack.pop();
             }
             i++;
         }
