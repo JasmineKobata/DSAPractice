@@ -2,26 +2,26 @@ class Solution {
     public int pathSum(TreeNode root, int targetSum) {
         if (root == null) return 0;
         Queue<Integer> q = new LinkedList<Integer>();
-        return itNode(root, targetSum, q, null);
+        return itNode(root, targetSum, q, 0);
     }
 
-    public int itNode(TreeNode root, int targetSum, Queue<Integer> queue, Integer currentSum) {
+    public int itNode(TreeNode root, int targetSum, Queue<Integer> queue, int currentSum) {
         if (root == null) return 0;
 
-        currentSum = adjustedQueue(queue, root.val, targetSum, currentSum);
-        return (currentSum == targetSum ? 1 : 0) + itNode(root.left, targetSum, queue, currentSum) + itNode(root.right, targetSum, queue, currentSum);
+        currentSum += root.val;
+        queue.add(root.val);
+        return adjustedQueue(queue, targetSum, currentSum) + itNode(root.left, targetSum, queue, currentSum) + itNode(root.right, targetSum, queue, currentSum);
     }
 
-    public Integer adjustedQueue(Queue<Integer> queue, int val, int targetSum, Integer currentSum) {
-        queue.add(val);
-        if (currentSum == null) currentSum = 0;
-        currentSum += val;
-
-        if (!queue.isEmpty()) {
-            while (currentSum > targetSum) {
-                currentSum -= queue.remove();
-            }
+    public int adjustedQueue(Queue<Integer> queue, int targetSum, int currentSum) {
+        int targetFound = 0;
+        Queue<Integer> qCopy = new LinkedList<Integer>(queue);
+        System.out.println(qCopy);
+        while (!qCopy.isEmpty()) {
+            currentSum -= qCopy.remove();
+            if (currentSum == targetSum) targetFound++;
         }
-        return currentSum;
+
+        return targetFound;
     }
 }
