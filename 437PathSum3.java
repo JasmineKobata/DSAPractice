@@ -10,16 +10,17 @@ class Solution {
 
         currentSum += root.val;
         queue.add(root.val);
-        return adjustedQueue(queue, targetSum, currentSum) + itNode(root.left, targetSum, queue, currentSum) + itNode(root.right, targetSum, queue, currentSum);
+        return adjustedQueue(queue, targetSum, currentSum) + itNode(root.left, targetSum, new LinkedList<Integer>(queue), currentSum) + itNode(root.right, targetSum, new LinkedList<Integer>(queue), currentSum);
     }
 
     public int adjustedQueue(Queue<Integer> queue, int targetSum, int currentSum) {
         int targetFound = 0;
         Queue<Integer> qCopy = new LinkedList<Integer>(queue);
-        System.out.println(qCopy);
+// System.out.println(qCopy);
         while (!qCopy.isEmpty()) {
-            currentSum -= qCopy.remove();
+            // System.out.println(currentSum);
             if (currentSum == targetSum) targetFound++;
+            currentSum -= qCopy.remove();
         }
 
         return targetFound;
