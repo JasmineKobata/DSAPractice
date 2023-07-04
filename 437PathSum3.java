@@ -5,7 +5,7 @@ class Solution {
         return itNode(root, targetSum, q, 0);
     }
 
-    public int itNode(TreeNode root, int targetSum, Queue<Integer> queue, int currentSum) {
+    public int itNode(TreeNode root, int targetSum, Queue<Integer> queue, double currentSum) {
         if (root == null) return 0;
 
         currentSum += root.val;
@@ -13,14 +13,13 @@ class Solution {
         return adjustedQueue(queue, targetSum, currentSum) + itNode(root.left, targetSum, new LinkedList<Integer>(queue), currentSum) + itNode(root.right, targetSum, new LinkedList<Integer>(queue), currentSum);
     }
 
-    public int adjustedQueue(Queue<Integer> queue, int targetSum, int currentSum) {
+    public int adjustedQueue(Queue<Integer> queue, int targetSum, double currentSum) {
         int targetFound = 0;
         Queue<Integer> qCopy = new LinkedList<Integer>(queue);
-// System.out.println(qCopy);
+
         while (!qCopy.isEmpty()) {
-            // System.out.println(currentSum);
             if (currentSum == targetSum) targetFound++;
-            currentSum -= qCopy.remove();
+            currentSum = currentSum - qCopy.remove();
         }
 
         return targetFound;
