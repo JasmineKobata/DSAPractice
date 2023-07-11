@@ -9,15 +9,14 @@ class Solution {
 
         int rStartVal = 0;
         int lStartVal = 0;
-        if (c == 'e') {
-            
-        } else if (c == 'l') {
-            lStartVal = startVal;
-        } else if (c == 'r') {
-            rStartVal = startVal;
+        if (c == 'e' || c == 'l') {
+            lStartVal = parseTree(root.left, 'r', startVal);
+        }
+        if (c == 'e' || c == 'r') {
+            rStartVal = parseTree(root.right, 'l', startVal);
         }
 
-        return Math.max(1 + parseTree(root.left, 'r', lStartVal),
-            1 + parseTree(root.right, 'l', rStartVal));
+        return Math.max(1 + lStartVal,
+            1 + rStartVal);
     }
 }
