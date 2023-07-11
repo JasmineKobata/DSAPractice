@@ -9,19 +9,16 @@ class Solution {
 
     public void parseTree(TreeNode root, char c, int val) {
         if (root == null) {
-            // max = Math.max(val, max);
             return;
         }
 
         if (c == 'e') {
             parseTree(root.left, 'r', val + 1);
             parseTree(root.right, 'l', val + 1);
-        }
-        if (c == 'l') {
+        } else if (c == 'l') {
             parseTree(root.left, 'r', val + 1);
             parseTree(root.right, 'l', 1);
-        }
-        if (c == 'r') {
+        } else if (c == 'r') {
             parseTree(root.left, 'r', 1);
             parseTree(root.right, 'l', val + 1);
         }
