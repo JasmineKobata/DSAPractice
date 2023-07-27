@@ -3,6 +3,7 @@ import java.util.Map.*;
 class Solution {
     public int findCircleNum(int[][] isConnected) {
         HashMap<Integer, Set<Integer>> indices = new HashMap<>();
+        HashMap<Integer, Set<Integer>> results = new HashMap<>();
 
         for (int i=0; i < isConnected.length; i++) {
             int index = findIdx(indices, i);
@@ -18,26 +19,31 @@ class Solution {
         System.out.println(indices);
 
         for (Entry<Integer, Set<Integer>> e : indices.entrySet()) {
+            boolean merged = false;
             for (Integer i : e.getValue()) {
                 int idx = findIdx(indices, i);
                 if (indices.containsKey(e.getKey()) && idx != e.getKey()) {
-                    Set<Integer> hashval1 = indices.remove(idx);
-                    Set<Integer> hashval2 = indices.remove(e.getKey());
-                    System.out.println(e.getKey());
+                    Set<Integer> hashval1 = indices.get(idx);
+                    Set<Integer> hashval2 = indices.get(e.getKey());
+                    // System.out.print("A ");
+                    // System.out.println(e.getKey());
                     hashval1.addAll(hashval2);
-                    indices.put(idx, hashval1);
+                    results.put(idx, hashval1);
+                    merged = true;
+                    // System.out.println(results);
                 }
-                System.out.println(indices);
             }
+            if (!merged) results.put(e.getKey(), e.getValue());
+            // System.out.print("B ");
+            System.out.println(results);
         }
 
-        return indices.size();
+        return results.size();
     }
 
     public int findIdx(HashMap<Integer, Set<Integer>> indices, int row) {
         for (Entry<Integer, Set<Integer>> e : indices.entrySet()) {
             if (e.getValue().contains(row)) {
-                // System.out.println(e);
                 return e.getKey();
             }
         }
