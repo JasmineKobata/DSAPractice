@@ -1,14 +1,14 @@
 class Solution {
-    public int dfs(int[][] connections, int currIdx, int city, int swaps) {
-        for (int i=0; i < connections.length; i++) {
-            if (i != currIdx) {
-                if (connections[i][0] == city) {
-                    swaps = dfs(connections, i, connections[i][1], swaps + 1);
-                } else if (connections[i][1] == city) {
-                    swaps = dfs(connections, i, connections[i][0], swaps);
-                }
+    public int dfs(ArrayList<int[]>[] connections, int i, Set<Integer> vis) {
+        vis.add(i);
+        int swaps = 0;
+
+        for (int[] elem: connections[i]) {
+            if (!vis.contains(elem[0])) {
+                swaps += dfs(connections, elem[0], vis) + elem[1];
             }
         }
+
         return swaps;
     }
 
@@ -35,8 +35,6 @@ class Solution {
             System.out.println();
         }
 
-        // System.out.println(Arrays.toString(array));
-
-        return dfs(connections, -1, 0, 0);
+        return dfs(array, 0, visited);
     }
 }
