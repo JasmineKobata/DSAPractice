@@ -15,34 +15,42 @@ class Solution {
 
         int i = 0;
         for (List<String> q : queries) {
-            if (!map.containsKey(q.get(0)) || !map.containsKey(q.get(1))) {
-                result[i++] = -1.0;
-            } else {
-                result[i++] = dfs(map, q.get(0), q.get(1)); //recursively find multiplication path                
-            }
+            Set<String> visited = new HashSet<>();
+            result[i++] = dfs(map, visited, q.get(0), q.get(1));
+            // if (!map.containsKey(q.get(0)) || !map.containsKey(q.get(1))) {
+            //     result[i++] = -1.0;
+            // } else {
+            //     result[i++] = dfs(map, q.get(0), q.get(1)); //recursively find multiplication path                
+            // }
         }
 
         return result;
     }
 
-    public double dfs(HashMap<String, HashMap<String, Double>> map, String currL, String lastL) {
+    public double dfs(HashMap<String, HashMap<String, Double>> map, Set<String> vis, String currL, String lastL) {
         if (!map.containsKey(currL) || !map.containsKey(lastL)) {
             return -1.0;
         }
 
-        double result = 0;
-        System.out.print(currL);
-        System.out.print(" ");
-        System.out.println(lastL);
+        // double result = 0;
+        // System.out.print(currL);
+        // System.out.print(" ");
+        // System.out.println(lastL);
 
         for ( String key : map.get(currL).keySet() ) {
-            if ( key == lastL ) {
-                System.out.println(map.get(key).get(lastL));
-                return map.get(key).get(lastL);
-            }
-            double dfsNum = dfs(map, key, lastL);
-            if (dfsNum != -1.0) {
-                result += dfsNum;
+            if (!vis.contains(currL + key) && !vis.contains(key + currL)) {
+                vis.add(currL + key);
+                vis.add(key + currL);
+
+                if ( key == lastL ) {
+                    System.out.println(map.get(key).get(lastL));
+                    return map.get(key).get(lastL);
+                }
+                double dfsNum = dfs(map, vis, key, lastL);
+                if (dfsNum != -1.0) {
+                    result += map.get(currL).get(key);
+                    result += dfsNum;
+                }
             }
         }
 
