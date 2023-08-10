@@ -26,10 +26,12 @@ class Solution {
     public double dfs(HashMap<String, HashMap<String, Double>> map, Set<String> vis, String currL, String lastL) {
         if (!map.containsKey(currL) || !map.containsKey(lastL)) {
             return -1.0;
+        } else if (currL.equals(lastL)) {
+            return 1.0;
         }
 
         double result = 1;
-        System.out.print(currL);
+        System.out.print(vis);
         System.out.print(" ");
         System.out.println(lastL);
 
