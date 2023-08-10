@@ -18,27 +18,32 @@ class Solution {
             if (!map.containsKey(q.get(0)) || !map.containsKey(q.get(1))) {
                 result[i++] = -1.0;
             } else {
-                result[i++] = dfs(map, q, q); //recursively find multiplication path                
+                result[i++] = dfs(map, q.get(0), q.get(1)); //recursively find multiplication path                
             }
         }
 
         return result;
     }
 
-    public double dfs(HashMap<String, HashMap<String, Double>> map, List<String> q, List<String> iter) {
-        double result = 0;
-        System.out.println(q);
-        // map.get(iter.get(0)).forEach( (k, v) -> {
-        //     //add v to result if first # found or both #s found
-        //     // result += dfs(map, q, new List<>(''))
-        // });
+    public double dfs(HashMap<String, HashMap<String, Double>> map, String currL, String lastL) {
+        if (!map.containsKey(currL) || !map.containsKey(lastL)) {
+            return -1.0;
+        }
 
-        for ( String key : map.get(iter.get(0)).keySet() ) {
-            System.out.println(key);
-            if ( key == q.get(1) ) {
-                System.out.println(map.get(key).get(iter.get(1)));
+        double result = 0;
+        System.out.print(currL);
+        System.out.print(" ");
+        System.out.println(lastL);
+
+        for ( String key : map.get(currL).keySet() ) {
+            if ( key == lastL ) {
+                System.out.println(map.get(key).get(lastL));
+                return map.get(key).get(lastL);
             }
-            // System.out.println(key);
+            double dfsNum = dfs(map, key, lastL);
+            if (dfsNum != -1.0) {
+                result += dfsNum;
+            }
         }
 
         return result;
