@@ -30,7 +30,7 @@ class Solution {
             return 1.0;
         }
 
-        double result = 0;
+        double result = -1.0;
 
         for ( String key : map.get(currL).keySet() ) {
             if (!vis.contains(currL + key) && !vis.contains(key + currL)) {
@@ -46,13 +46,13 @@ class Solution {
                 if (dfsNum != -1.0) {
                     System.out.print("B " + dfsNum + " ");
                     System.out.println(map.get(currL).get(key));
-                    if (result == 0) result = 1;
+                    if (result == -1.0) result = 1.0;
                     result *= map.get(currL).get(key);
                     result *= dfsNum;
                 }
             }
         }
 
-        return result == 0 ? -1.0 : result;
+        return result;
     }
 }
