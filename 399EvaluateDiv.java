@@ -32,7 +32,7 @@ class Solution {
 
         double result = 1;
         System.out.print(vis);
-        System.out.print(" ");
+        System.out.print(" "); 
         System.out.println(lastL);
 
         for ( String key : map.get(currL).keySet() ) {
@@ -41,11 +41,13 @@ class Solution {
                 vis.add(key + currL);
 
                 if ( key.equals(lastL) ) {
-                    System.out.println(map.get(key).get(lastL));
+                    System.out.print("A ");
+                    System.out.println(map.get(currL).get(lastL));
                     return map.get(currL).get(key);
                 }
                 double dfsNum = dfs(map, vis, key, lastL);
                 if (dfsNum != -1.0) {
+                    System.out.print("B " + dfsNum + " ");
                     System.out.println(map.get(currL).get(key));
                     result *= map.get(currL).get(key);
                     result *= dfsNum;
@@ -53,6 +55,6 @@ class Solution {
             }
         }
 
-        return result;
+        return result == 1.0 ? -1.0 : result;
     }
 }
