@@ -25,23 +25,29 @@ class Solution {
         int[] right = new int[]{x+1, y};
         int[] up = new int[]{x, y-1};
         int[] down = new int[]{x, y+1};
+        String leftStr = Arrays.stream(left).boxed().toList().toString();
+        String rightStr = Arrays.stream(right).boxed().toList().toString();
+        String upStr = Arrays.stream(up).boxed().toList().toString();
+        String downStr = Arrays.stream(down).boxed().toList().toString();
         System.out.println(maze[x][y]);
 
-        if (x-1 >= 0 && isPath(left, maze) && !visited.contains(Arrays.asList(left).toString())) {
+        if (x-1 >= 0 && isPath(left, maze) && !visited.contains(leftStr)) {
             System.out.println("A " + visited.toString());
             int num = 1 + bfs(maze, left, startSqr);
             System.out.println("A " + num);
             return num;
         }
-        if (y-1 >= 0  && isPath(up, maze) && !visited.contains(Arrays.asList(up).toString())) {
+        if (y-1 >= 0  && isPath(up, maze) && !visited.contains(upStr)) {
+            System.out.print(Arrays.stream(up).boxed().toList().toString() + " ");
             System.out.println("B");
             return 1 + bfs(maze, up, startSqr);
         }
-        if (x+1 >= 0 && isPath(right, maze) && !visited.contains(Arrays.asList(right).toString())) {
+        if (x+1 >= 0 && isPath(right, maze) && !visited.contains(rightStr)) {
             System.out.println("C");
             return 1 + bfs(maze, right, startSqr);
         }
-        if (y+1 >= 0 && isPath(down, maze) && !visited.contains(Arrays.asList(down).toString())) {
+        if (y+1 >= 0 && isPath(down, maze) && !visited.contains(downStr)) {
+            System.out.print(Arrays.asList(up).toString() + " ");
             System.out.println("D");
             return 1 + bfs(maze, down, startSqr);
         }
@@ -55,6 +61,7 @@ class Solution {
     }
 
     public boolean isPath(int[] sqr, char[][] maze) {
+        
         return (maze[sqr[0]][sqr[1]] == '.');
     }
 }
