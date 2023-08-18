@@ -42,7 +42,7 @@ class Solution {
         if (y+1 < maze[0].length && isPath(down, maze) && !visited.contains(downStr)) {
             return 1 + bfs(maze, down, startSqr);
         }
-        System.out.println("E");
+
         return -1;
     }
 
