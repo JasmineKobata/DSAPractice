@@ -2,19 +2,24 @@ class Solution {
     Set<String> visited = new HashSet();
 
     public int nearestExit(char[][] maze, int[] entrance) {
-        return bfs(maze, entrance, entrance);
+        System.out.println("Start: " + maze.toString());
+        int result = bfs(maze, entrance, entrance);
+        System.out.println("End: " + result);
+        return result;
     }
 
     public int bfs(char[][] maze, int[] currentSqr, int[] startSqr) {
+        System.out.println("VIS: " + visited.toString() + ' ');
         int startX = startSqr[0], startY = startSqr[1];
         int x = currentSqr[0], y = currentSqr[1];
-        if ((startX != x || startY != y) && isBorder(currentSqr, maze)) return 0;
+        if ((startX != x || startY != y) && isBorder(currentSqr, maze)) {
+            System.out.println("Z");
+            return 0;
+        }
 
         List<Integer> square = Arrays.stream(currentSqr).boxed().toList();
-        System.out.print(visited.toString() + ' ');
         visited.add(square.toString());
         System.out.print(visited.toString() + ' ');
-        System.out.println((startX != x || startY != y) && isBorder(currentSqr, maze));
 
         int[] left = new int[]{x-1, y};
         int[] right = new int[]{x+1, y};
@@ -23,8 +28,10 @@ class Solution {
         System.out.println(maze[x][y]);
 
         if (x-1 >= 0 && isPath(left, maze) && !visited.contains(Arrays.asList(left).toString())) {
-            System.out.println("A");
-            return 1 + bfs(maze, left, startSqr);
+            System.out.println("A " + visited.toString());
+            int num = 1 + bfs(maze, left, startSqr);
+            System.out.println("A " + num);
+            return num;
         }
         if (y-1 >= 0  && isPath(up, maze) && !visited.contains(Arrays.asList(up).toString())) {
             System.out.println("B");
@@ -38,6 +45,7 @@ class Solution {
             System.out.println("D");
             return 1 + bfs(maze, down, startSqr);
         }
+        System.out.println("E");
         return -1;
     }
 
