@@ -14,11 +14,7 @@ class Solution {
                     }
                 }
             }
-    for (int x=0; x < grid.length; x++) {
-        System.out.print(Arrays.stream(grid[x]).boxed().toList().toString());
-        System.out.println(Arrays.stream(tempGrid[x]).boxed().toList().toString());}
-
-        grid = copyArray(tempGrid);
+            grid = copyArray(tempGrid);
         }
 
         for (int i=0; i < grid.length; i++) {
