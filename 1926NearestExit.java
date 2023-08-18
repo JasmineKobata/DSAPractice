@@ -1,57 +1,63 @@
 class Solution {
-    Set<String> visited = new HashSet();
-    boolean edgeFound = false;
+    public int orangesRotting(int[][] grid) {
+        int minutes = 0;
+        boolean allRotten = false;
 
-    public int nearestExit(char[][] maze, int[] entrance) {
-        int result = bfs(maze, entrance, entrance);
-        return edgeFound ? result : -1;
-    }
-
-    public int bfs(char[][] maze, int[] currentSqr, int[] startSqr) {
-        int startX = startSqr[0], startY = startSqr[1];
-        int x = currentSqr[0], y = currentSqr[1];
-        if ((startX != x || startY != y) && isBorder(currentSqr, maze)) {
-            edgeFound = true;
-            return 0;
+        while (!allRotten) {
+            allRotten = true;
+            for (int i=0; i < grid.length; i++) {
+                for (int j=0; j < grid[i].length; j++) {
+                    if (grid[i][j] == 2) {
+    for (int x=0; x < grid.length; x++) {
+        System.out.print(Arrays.stream(grid[x]).boxed().toList().toString());}
+                        allRotten &= updateGrid(grid, i, j);
+                        System.out.println(allRotten);
+                    }
+                }
+            }
         }
 
-        List<Integer> square = Arrays.stream(currentSqr).boxed().toList();
-        visited.add(square.toString());
-        System.out.print(visited.toString() + ' ');
+        for (int i=0; i < grid.length; i++) {
+            for (int j=0; j < grid[i].length; j++) {
+                if (grid[i][j] == 1) return -1;
+            }
+        }
 
+        return minutes;
+    }
+
+    public boolean updateGrid(int[][] grid, int x, int y) {
         int[] left = new int[]{x-1, y};
         int[] right = new int[]{x+1, y};
         int[] up = new int[]{x, y-1};
         int[] down = new int[]{x, y+1};
-        String leftStr = Arrays.stream(left).boxed().toList().toString();
-        String rightStr = Arrays.stream(right).boxed().toList().toString();
-        String upStr = Arrays.stream(up).boxed().toList().toString();
-        String downStr = Arrays.stream(down).boxed().toList().toString();
-        System.out.println(maze[x][y]);
 
-        if (x-1 >= 0 && isPath(left, maze) && !visited.contains(leftStr)) {
-            int num = 1 + bfs(maze, left, startSqr);
-            return num;
+        boolean allRotten = true;
+
+        if (inBounds(left, grid)) {
+            grid[left[0]][left[1]] = 2;
+            allRotten = false;
         }
-        if (y-1 >= 0  && isPath(up, maze) && !visited.contains(upStr)) {
-            return 1 + bfs(maze, up, startSqr);
+        if (inBounds(right, grid)) {
+            grid[right[0]][right[1]] = 2;
+            allRotten = false;
         }
-        if (x+1 < maze.length && isPath(right, maze) && !visited.contains(rightStr)) {
-            return 1 + bfs(maze, right, startSqr);
+        if (inBounds(up, grid)) {
+            grid[up[0]][up[1]] = 2;
+            allRotten = false;
         }
-        if (y+1 < maze[0].length && isPath(down, maze) && !visited.contains(downStr)) {
-            return 1 + bfs(maze, down, startSqr);
+        if (inBounds(down, grid)) {
+            grid[down[0]][down[1]] = 2;
+            allRotten = false;
         }
 
-        return -1;
+        return allRotten;
     }
 
-    public boolean isBorder(int[] currentSqr, char[][] maze) {
-        int x = currentSqr[0], y = currentSqr[1];
-        return x == 0 || x == maze.length-1 || y == 0 || y == maze[0].length-1;
-    }
+    public boolean inBounds(int[] sqr, int[][] grid) {
+        int x = sqr[0], y = sqr[1];
 
-    public boolean isPath(int[] sqr, char[][] maze) {
-        return (maze[sqr[0]][sqr[1]] == '.');
+        return x >= 0 && x < grid.length && y >= 0 && y < grid[0].length
+            && grid[x][y] == 1;
     }
 }
