@@ -38,16 +38,14 @@ class Solution {
             return num;
         }
         if (y-1 >= 0  && isPath(up, maze) && !visited.contains(upStr)) {
-            System.out.print(Arrays.stream(up).boxed().toList().toString() + " ");
             System.out.println("B");
             return 1 + bfs(maze, up, startSqr);
         }
-        if (x+1 >= 0 && isPath(right, maze) && !visited.contains(rightStr)) {
+        if (x+1 < maze.length && isPath(right, maze) && !visited.contains(rightStr)) {
             System.out.println("C");
             return 1 + bfs(maze, right, startSqr);
         }
-        if (y+1 >= 0 && isPath(down, maze) && !visited.contains(downStr)) {
-            System.out.print(Arrays.asList(up).toString() + " ");
+        if (y+1 < maze[0].length && isPath(down, maze) && !visited.contains(downStr)) {
             System.out.println("D");
             return 1 + bfs(maze, down, startSqr);
         }
@@ -61,7 +59,7 @@ class Solution {
     }
 
     public boolean isPath(int[] sqr, char[][] maze) {
-        
+        System.out.println("PATH: " + Arrays.stream(sqr).boxed().toList().toString());
         return (maze[sqr[0]][sqr[1]] == '.');
     }
 }
