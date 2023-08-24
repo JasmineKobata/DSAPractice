@@ -1,57 +1,34 @@
 class Solution {
     public int orangesRotting(int[][] grid) {
-        int minutes = -1;
-        Boolean allRotten = false;
+        Queue<int[]> q = new LinkedList<>();
+        int minutes = 0, fresh = 0;
 
-        while (!allRotten) {
-            allRotten = true;
-            minutes++;
-            int[][] tempGrid = copyArray(grid);
-            for (int i=0; i < grid.length; i++) {
-                for (int j=0; j < grid[i].length; j++) {
-                    if (grid[i][j] == 2) {
-                        allRotten &= updateGrid(grid, tempGrid, i, j);
+        for (int i=0; i < grid.length; i++) {
+            for (int j=0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) fresh++;
+                else if (grid[i][j] == 2) q.add(new int[]{i, j});
+            }
+        }
+
+        
+        int[] dirs = new int[]{{0, 1},{0, -1},{1, 0},{-1, 0}};
+        while (!q.empty() && fresh > 0) {
+            int len = q.size();
+            for (int i=0; i < len; i++) {
+                int[] coords = q.pop();
+                for (int dir : dirs) {
+                    int x = coords[0] + dir[0], y = coords[1] + dir[1];
+                    if (inBounds(grid[x][y], grid)) {
+                        grid[x][y] = 2;
+                        q.push(new int[]{x, y});
+                        fresh--;
                     }
                 }
             }
-            grid = copyArray(tempGrid);
+            minutes++;
         }
 
-        for (int i=0; i < grid.length; i++) {
-            for (int j=0; j < grid[i].length; j++) {
-                if (grid[i][j] == 1) return -1;
-            }
-        }
-
-        return minutes;
-    }
-
-    public boolean updateGrid(int[][] grid, int[][] tempGrid, int x, int y) {
-        int[] left = new int[]{x-1, y};
-        int[] right = new int[]{x+1, y};
-        int[] up = new int[]{x, y-1};
-        int[] down = new int[]{x, y+1};
-
-        boolean allRotten = true;
-
-        if (inBounds(left, grid)) {
-            tempGrid[left[0]][left[1]] = 2;
-            allRotten &= false;
-        }
-        if (inBounds(right, grid)) {
-            tempGrid[right[0]][right[1]] = 2;
-            allRotten &= false;
-        }
-        if (inBounds(up, grid)) {
-            tempGrid[up[0]][up[1]] = 2;
-            allRotten &= false;
-        }
-        if (inBounds(down, grid)) {
-            tempGrid[down[0]][down[1]] = 2;
-            allRotten &= false;
-        }
-
-        return allRotten;
+        return fresh < 1 ? minutes : -1;
     }
 
     public boolean inBounds(int[] sqr, int[][] grid) {
@@ -59,16 +36,5 @@ class Solution {
 
         return x >= 0 && x < grid.length && y >= 0 && y < grid[0].length
             && grid[x][y] == 1;
-    }
-
-    public int[][] copyArray(int[][] grid) {
-        int[][] copy = new int[grid.length][grid[0].length];
-
-        for (int i=0; i < copy.length; i++) {
-            for (int j=0; j < copy[0].length; j++) {
-                copy[i][j] = grid[i][j];
-            }
-        }
-        return copy;
     }
 }
