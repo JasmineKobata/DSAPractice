@@ -11,16 +11,16 @@ class Solution {
         }
 
         
-        int[] dirs = new int[]{{0, 1},{0, -1},{1, 0},{-1, 0}};
-        while (!q.empty() && fresh > 0) {
+        int[][] dirs = new int[][]{new int[]{0, 1},new int[]{0, -1},new int[]{1, 0},new int[]{-1, 0}};
+        while (!q.isEmpty() && fresh > 0) {
             int len = q.size();
             for (int i=0; i < len; i++) {
-                int[] coords = q.pop();
-                for (int dir : dirs) {
+                int[] coords = q.remove();
+                for (int[] dir : dirs) {
                     int x = coords[0] + dir[0], y = coords[1] + dir[1];
-                    if (inBounds(grid[x][y], grid)) {
+                    if (inBounds(new int[]{x, y}, grid)) {
                         grid[x][y] = 2;
-                        q.push(new int[]{x, y});
+                        q.add(new int[]{x, y});
                         fresh--;
                     }
                 }
