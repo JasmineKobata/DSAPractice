@@ -16,11 +16,11 @@ class Solution {
                     mid = (end - mid - 1) / 2 + mid + 1;
                     System.out.println("Q " + mid);
                 }
-                else if (spells[i] * potions[mid] > success) {
+                else {
                     end = mid;
                     mid /= 2;
                 }
-                System.out.println("B " + mid);
+                System.out.println("B " + mid + " " + end);
             }
             System.out.println("C " + pLen + " " + mid);
             if (mid < 0) pairs[i] = pLen;
