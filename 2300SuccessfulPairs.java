@@ -1,29 +1,29 @@
 class Solution {
     public int[] successfulPairs(int[] spells, int[] potions, long success) {
-        int len = spells.length;
-        int[] pairs = new int[len];
+        int pLen = potions.length;
+        int[] pairs = new int[spells.length];
+        Arrays.sort(potions);
+        System.out.println(Arrays.toString(potions));
 
-        for (int i=0; i < len; i++) {
-            int mid = (len + 1) / 2;
+        for (int i=0; i < spells.length; i++) {
+            int mid = (pLen) / 2;
             System.out.println("A " + mid);
-            while (mid < len && mid >= 0
+            while (mid < pLen && mid > 0
                 && (spells[i] * potions[mid] < success
                 || spells[i] * potions[mid-1] >= success)) {
                 if (spells[i] * potions[mid] < success) {
-                    mid = (len - mid) / 2 + mid + 1;
+                    mid = (pLen - mid) / 2 + mid + 1;
                     System.out.println("Q " + mid);
                 }
                 else if (spells[i] * potions[mid] > success) mid /= 2;
-                System.out.println("B " + Integer.toString(mid));
-                // System.out.print(spells[i]);
-                // System.out.print(" ");
-                // System.out.println(mid);
+                System.out.println("B " + mid);
             }
-            // System.out.println("C " + spells[i] * potions[mid]);
-            if (mid < len) pairs[i] = len;
-            else if (mid >= 0) pairs[i] = 0;
-            else pairs[i] = len - mid;
+            System.out.println("C " + pLen + " " + mid);
+            if (mid < 0) pairs[i] = pLen;
+            else if (mid >= pLen) pairs[i] = 0;
+            else pairs[i] = pLen - mid;
         }
+        System.out.println(Arrays.toString(pairs));
         return pairs;
     }
 }
