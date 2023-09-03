@@ -5,4 +5,4 @@ class Solution {
             int mid = start + (end - start) / 2;
         }
     }
-}
+} 
