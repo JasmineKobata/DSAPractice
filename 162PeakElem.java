@@ -1,20 +1,24 @@
 class Solution {
     public int findPeakElement(int[] nums) {
-        int start = 1, end = nums.length-1;
-        while (start < end) {
-            int mid = start + (end - start) / 2;
-            
-            if (nums[mid-1] > nums[mid]) {
-                return findPeakElement(Arrays.copyOfRange(nums, start, mid));
-            }
-            if (nums[mid+1] > nums[mid]) {
-                return findPeakElement(Arrays.copyOfRange(nums, mid, end + 1));
-            }
-            if (nums[mid-1] < nums[mid] && nums[mid+1] < nums[mid]) {
-                return mid;
+        int start = 0, end = nums.length-1;
+        int result = 0, max = nums[0];
+        
+        while (start < end) {            
+            if (nums[start] > nums[end]) {
+                if (nums[start] > max) {
+                    max = nums[start];
+                    result = start;
+                }
+                end--;
+            } else {
+                if (nums[end] > max) {
+                    max = nums[end];
+                    result = end;
+                }
+                start++;
             }
         }
 
-        return 0;
+        return result;
     }
 }
