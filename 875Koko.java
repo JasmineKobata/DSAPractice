@@ -21,10 +21,7 @@ class Solution {
     public int hoursToEat(int[] piles, int k) {
         int hours = 0;
         for (int pile : piles) {
-            while (pile > 0) {
-                hours += 1;
-                pile -= k;
-            }
+            hours += Math.ceil((double)pile / k);
         }
         return hours;
     }
