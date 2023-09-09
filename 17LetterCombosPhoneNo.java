@@ -19,12 +19,12 @@ class Solution {
 
     public void parseString(String digits, String str) {
         if (digits.length() == 0) {
-            strings.add(str);
+            if (str.length() > 0) strings.add(str);
             return;
         };
-
-        for (Character c : map.get(digit.charAt(0))) {
-            parseString(digits, str + c);
+        
+        for (Character c : map.get(digits.charAt(0)).toCharArray()) {
+            parseString(digits.substring(1), str + c);
         }
     }
 }
