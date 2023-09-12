@@ -9,14 +9,15 @@ class Solution {
 
     public void parseArray(List<Integer> nums, int k, int n) {
         if (k == 0) {
-            System.out.println(nums);
-            if (getSum(nums) == n) result.add(nums);
+            if (getSum(nums) == n) result.add(new ArrayList<>(nums));
+            System.out.println(result);
             return;
         }
         
-        for (int i=0; i < 9; i++) {
+        for (int i=1; i < 10; i++) {
             nums.add(i);
             parseArray(nums, k-1, n);
+            nums.remove(nums.size() - 1);
         }
     }
 
