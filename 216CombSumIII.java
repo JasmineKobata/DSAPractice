@@ -10,13 +10,12 @@ class Solution {
     public void parseArray(List<Integer> nums, int start, int k, int n) {
         if (k == 0) {
             if (getSum(nums) == n) result.add(new ArrayList<>(nums));
-            System.out.println(result);
             return;
         }
         
         for (int i=start; i < 10; i++) {
             nums.add(i);
-            parseArray(nums, start+1, k-1, n);
+            parseArray(nums, i+1, k-1, n);
             nums.remove(nums.size() - 1);
         }
     }
