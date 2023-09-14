@@ -1,15 +1,18 @@
 class Solution {
     public int tribonacci(int n) {
-        List<Integer> dp = new ArrayList<Integer>(){1, 2, 3};
+        List<Integer> dp = new ArrayList<>(Arrays.asList(0, 1, 1));
         if (n < 3) return dp.get(n);
 
         int sum = 0;
-        for (int i=0; i < n; i++) {
+        for (int i=1; i <= n; i++) {
             if (i > 2) {
-                sum -= dp.get(n-3);
+                if (i > 3) sum -= dp.get(i-4);
+                sum += dp.get(i-1);
+                dp.add((Integer)sum);
+            } else {
+                sum += dp.get(i-1);
             }
-            sum += dp.get(n);
-            dp.add(sum);
+            System.out.println(dp);
         }
         return sum;
     }
