@@ -5,6 +5,7 @@ class Solution {
         for (int i=2; i<cost.length; i++) {
             dp.add(cost[i] + Math.min(dp.get(i-1), dp.get(i-2)));
         }
-        return dp.get(cost.length-1);
+        
+        return Math.min(dp.get(cost.length-1), dp.get(cost.length-2));
     }
 }
