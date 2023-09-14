@@ -4,15 +4,12 @@ class Solution {
         if (n < 3) return dp.get(n);
 
         int sum = 0;
-        for (int i=1; i <= n; i++) {
-            if (i > 2) {
-                if (i > 3) sum -= dp.get(i-4);
-                sum += dp.get(i-1);
-                dp.add((Integer)sum);
-            } else {
-                sum += dp.get(i-1);
-            }
-            System.out.println(dp);
+        for (int i=1; i < 3; i++) { sum += dp.get(i-1); }
+
+        for (int i=3; i <= n; i++) {
+            if (i > 3) sum -= dp.get(i-4);
+            sum += dp.get(i-1);
+            dp.add((Integer)sum);
         }
         return sum;
     }
