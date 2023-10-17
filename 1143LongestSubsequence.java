@@ -27,13 +27,6 @@ class Solution {
             }
         }
 
-        // for (int x=0; x<text1.length(); x++) {
-        //     for (int y=0; y<text2.length(); y++) {
-        //         System.out.print(dp[x][y]);
-        //     }
-        //     System.out.println();
-        // }
-
         return dp[text1.length()-1][text2.length()-1];
     }
 }
