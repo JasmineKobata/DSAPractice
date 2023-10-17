@@ -17,7 +17,7 @@ class Solution {
                 if (text1.charAt(x) == text2.charAt(y))
                     dp[x][y] = dp[x-1][y-1] + 1;
                 else
-                    dp[x][y] = dp[x-1][y];
+                    dp[x][y] = Math.max(dp[x-1][y], dp[x][y-1]);
             }
         }
 
