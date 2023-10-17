@@ -16,10 +16,8 @@ class Solution {
             for (int y=1; y<text2.length(); y++) {
                 if (text1.charAt(x) == text2.charAt(y))
                     dp[x][y] = dp[x-1][y-1] + 1;
-                else if (x > 0 && dp[x-1][y] == 1)
-                    dp[x][y] = 1;
                 else
-                    dp[x][y] = dp[x-1][y-1];
+                    dp[x][y] = dp[x-1][y];
             }
         }
 
