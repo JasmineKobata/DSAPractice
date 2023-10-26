@@ -20,12 +20,10 @@ class Solution {
         long sum = 0;
         for (int i=nums1.length-1; i >= 0; i--) {
             int num1 = v.get(i).get(1);
-            if (i > nums1.length - k) {
-                sum += num1;
-                pq.add(num1);
-            } else {
-                sum += num1;
-                pq.add(num1);
+            sum += num1;
+            pq.add(num1);
+
+            if (pq.size() > k) {
                 sum -= pq.remove();
             }
             System.out.println(pq);
