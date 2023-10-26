@@ -2,7 +2,6 @@ import java.util.*;
 
 class SortPairs implements Comparator<Vector<Integer>> {
     @Override public int compare(Vector<Integer> a, Vector<Integer> b) {
-        // if (a.get(0) == b.get(0)) return a.get(1).compareTo(b.get(1));
         return a.get(0).compareTo(b.get(0));
     }
 }
@@ -28,14 +27,9 @@ class Solution {
                 sum -= pq.remove();
             }
             if (pq.size() == k) {
-                System.out.print(sum);
-                System.out.print(" ");
-                System.out.println(num2);
                 result = Math.max(result, sum*num2);
             }
         }
-
-        System.out.println(v);
 
         return result;
     }
