@@ -20,14 +20,19 @@ class Solution {
         long sum = 0;
         for (int i=nums1.length-1; i >= 0; i--) {
             int num1 = v.get(i).get(1);
+            int num2 = v.get(i).get(0);
             sum += num1;
             pq.add(num1);
 
             if (pq.size() > k) {
                 sum -= pq.remove();
             }
-            System.out.println(pq);
-            result = Math.max(result, sum*v.get(i).get(0));
+            if (pq.size() == k) {
+                System.out.print(sum);
+                System.out.print(" ");
+                System.out.println(num2);
+                result = Math.max(result, sum*num2);
+            }
         }
 
         System.out.println(v);
