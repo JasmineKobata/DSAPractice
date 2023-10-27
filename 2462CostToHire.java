@@ -29,13 +29,11 @@ class Solution {
                 pq.add(v2);
             }
             
-System.out.println(pq);
             if (pq.size() == candidates*2 || v.isEmpty()) {
                 Vector<Integer> elem = pq.remove();
                 sum += elem.get(0);
                 leftRight = elem.get(2);
                 k--;
-                System.out.println(sum);
             }
         }
 
