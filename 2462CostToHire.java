@@ -17,14 +17,25 @@ class Solution {
         }
 
         long sum = 0;
+        int leftRight = 0; //left = -1, right = 1
         while (k > 0) {
-            if (!v.isEmpty()) pq.add(v.remove(0));
-            if (!v.isEmpty()) pq.add(v.remove(v.size() - 1));
+            if (!v.isEmpty() && leftRight < 1) {
+                Vector<Integer> v1 = v.remove(0);
+                v1.add(-1);
+                pq.add(v1);
+            } if (!v.isEmpty() && leftRight > -1) {
+                Vector<Integer> v2 = v.remove(v.size() - 1);
+                v2.add(1);
+                pq.add(v2);
+            }
             
 System.out.println(pq);
             if (pq.size() == candidates*2 || v.isEmpty()) {
-                sum += pq.remove().get(0);
+                Vector<Integer> elem = pq.remove();
+                sum += elem.get(0);
+                leftRight = elem.get(2);
                 k--;
+                System.out.println(sum);
             }
         }
 
