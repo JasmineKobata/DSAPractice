@@ -17,14 +17,14 @@ class Solution {
         }
 
         long sum = 0;
-        for (int i=0; i < costs.length/2; i++) {
-            if (!v.isEmpty()) {
-                pq.add(v.remove(0));
-                pq.add(v.remove(v.size() - 1));
-            }
+        while (k > 0) {
+            if (!v.isEmpty()) pq.add(v.remove(0));
+            if (!v.isEmpty()) pq.add(v.remove(v.size() - 1));
+            
 System.out.println(pq);
-            if (pq.size() == candidates*2 || pq.size() == costs.length) {
+            if (pq.size() == candidates*2 || v.isEmpty()) {
                 sum += pq.remove().get(0);
+                k--;
             }
         }
 
