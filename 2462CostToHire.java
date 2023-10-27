@@ -36,8 +36,6 @@ class Solution {
                 k--;
             }
         }
-
-        System.out.println(pq);
         return sum;
     }
 }
