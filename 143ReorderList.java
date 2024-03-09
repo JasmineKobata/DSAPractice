@@ -1,54 +1,41 @@
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
-
-//reverse up to middle node
-//s    f
-//1 -> 2 -> 3 -> 4
-//     s         f
-//1 -> 2 -> 3 -> 4
-//l       h  r
-//2 -> 1, 3, 4
-//l  h       r
-//1, 2 -> 3, 4
-//3 <- 2 <- 4 <- 1
-//s    f
-//1 -> 2 -> 3 -> 4 -> 5
-//2 -> 1, 3, 4 -> 5
-//3 -> 4 -> 2 -> 5 -> 1
-//build list in reverse order, alternating
-
 class Solution {
     public void reorderList(ListNode head) {
         if (head == null || head.next == null) return;
-        ListNode slow = head, fast = head.next.next;
+        ListNode slow = head, fast = head.next;
         ListNode left = null, right = null;
+        boolean odd = false;
 
         while (fast != null) {
             ListNode temp = left;
             left = slow;
             slow = slow.next;
             fast = fast.next;
-            if (fast != null) fast = fast.next;
+            odd = false;
+            if (fast != null) {
+                odd = true;
+                fast = fast.next;
+            }
             left.next = temp;
         }
         right = slow;
-        // if (fast == null) {
-        //     head = left;
-        //     left = left.next;
-        //     head.next = null;
-        // } else {
-        //     head = right;
-        //     right = right.next;
-        //     head.next = null;
-        // }
-        System.out.println(left.val + " " + head.val + " " + right.val);
+        head = right;
+        right = right.next;
+        head.next = null;
+        if (odd) {
+            ListNode temp = left;
+            left = right;
+            right = temp;
+        }        
+
+        while (left != null) {
+            ListNode temp = left;
+            left = left.next;
+            temp.next = head;
+            head = temp;
+            
+            temp = left;
+            left = right;
+            right = temp;
+        }
     }
 }
