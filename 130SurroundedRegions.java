@@ -8,11 +8,13 @@ class Solution {
             for (int y=0; y < board[x].length; y++) {
                 if ((x == 0 || y == 0 || x == board.length-1 || y == board[x].length-1)
                     && board[x][y] == 'O') {
-                    q.add(new int[]{x, y});
-System.out.println("NEW");
+                    int[] currentPos = new int[]{x, y};
+                    q.add(currentPos);
+                    set.add(Arrays.toString(currentPos));
+
                     while (!q.isEmpty()) {
                         int[] pos = q.remove();
-                        set.add(Arrays.toString(pos));
+                        System.out.println(q.size());
                         q = bfs(q, set, board, pos);
                     }
                 }
@@ -42,6 +44,7 @@ System.out.println("NEW");
                 && !set.contains(Arrays.toString(dpos))
                 && board[dx][dy] == 'O') {
                 q.add(dirs[i]);
+                set.add(Arrays.toString(dirs[i]));
             }
         }
         return q;
