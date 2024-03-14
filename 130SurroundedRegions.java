@@ -1,4 +1,4 @@
-lass Solution {
+class Solution {
     public void solve(char[][] board) {
         //BFS - queue
         Set<String> set = new HashSet<>();
@@ -9,11 +9,11 @@ lass Solution {
                 if ((x == 0 || y == 0 || x == board.length-1 || y == board[x].length-1)
                     && board[x][y] == 'O') {
                     q.add(new int[]{x, y});
-
+System.out.println("NEW");
                     while (!q.isEmpty()) {
                         int[] pos = q.remove();
                         set.add(Arrays.toString(pos));
-                        bfs(q, set, board, pos);
+                        q = bfs(q, set, board, pos);
                     }
                 }
             }
@@ -29,7 +29,7 @@ lass Solution {
         }
     }
 
-    private void bfs(Queue<int[]> q, Set<String> set, char[][] board, int[] pos) {
+    private Queue bfs(Queue<int[]> q, Set<String> set, char[][] board, int[] pos) {
         int x = pos[0], y = pos[1];
         int[] left = new int[]{x-1, y}, right = new int[]{x+1, y};
         int[] up = new int[]{x, y-1}, down = new int[]{x, y+1};
@@ -39,10 +39,11 @@ lass Solution {
             int dx = dpos[0], dy = dpos[1];
             if (dx >= 0 && dx < board.length
                 && dy >= 0 && dy < board[0].length
-                && !set.contains(Arrays.toString(pos))
+                && !set.contains(Arrays.toString(dpos))
                 && board[dx][dy] == 'O') {
                 q.add(dirs[i]);
             }
         }
+        return q;
     }
 }
