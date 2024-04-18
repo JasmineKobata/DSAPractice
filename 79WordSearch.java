@@ -8,9 +8,9 @@ class Solution {
             for (int y=0; y < board[0].length; y++) {
                 int[] pos = new int[]{x, y};
                 if (word.charAt(0) == board[x][y]
-                && !map.containsKey(pos.toString())) {
+                && !map.containsKey(Arrays.toString(pos))) {
                     q.add(pos);
-                    map.put(pos.toString(), 0);
+                    map.put(Arrays.toString(pos), 0);
                     if (word.length() == bfs(pos, board, word, map, q)) {
                         return true;
                     }
@@ -25,20 +25,20 @@ class Solution {
         while (!q.isEmpty()) {
             int[] elem = q.remove();
             int x = elem[0], y = elem[1];
-            int left = x == 0 ? x : x - 1;
-            int right = x == board.length - 1 ? x : x + 1;
-            int up = y == 0 ?  y : y - 1;
-            int down = y == board[0].length - 1 ? y : y + 1;
+            int left = x > 0 ? x - 1 : x;
+            int right = x < board.length - 1 ? x + 1 : x;
+            int up = y > 0 ?  y - 1 : y;
+            int down = y < board[0].length - 1 ? y + 1 : y;
             for (int dirx = left; dirx <= right; dirx++) {
                 for (int diry = up; diry <= down; diry++) {
-                    int wordPos = map.get(pos)+1;
+                    int wordPos = map.get(Arrays.toString(elem))+1;
                     wordDepthMax = Math.max(wordDepthMax, wordPos);
                     int[] newPos = new int[]{dirx, diry};
 
                     if (word.charAt(wordPos) == board[dirx][diry]
-                    && !map.containsKey(newPos.toString())) {
+                    && !map.containsKey(Arrays.toString(newPos))) {
                         q.add(newPos);
-                        map.put(newPos.toString(), wordPos);
+                        map.put(Arrays.toString(newPos), wordPos);
                     }
                 }
             }
